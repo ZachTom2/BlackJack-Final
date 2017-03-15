@@ -19,6 +19,7 @@ public class Card {
 		suit = s;
 		value = val;
 	}
+        //aces
 	public Card(String t, String s, int[] val){
 		type = t;
 		suit = s;
