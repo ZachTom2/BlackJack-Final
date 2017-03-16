@@ -23,19 +23,31 @@ import java.util.ArrayList;
     public Deck(int numDecks){
 		//
                 for(int i=0; i<numDecks; i++){
-                createDecks();
-                    
+                createDecks();               
 
               }
         }
     public void createDecks(){
         instantiateNumbers();
+        instantiateFaces();
     }
     public void instantiateNumbers(){
         for (int j =0; j< 9; j++){    
             for(int i = 0; i<4; i++){
-                Card temp = New Card(RANKS[j],SUITS[i],RANKS[j]);
+                Card temp = new Card(RANKS[j],SUITS[i], VALUESEXCLUDINGACES[j]);
+                Deck.add(temp);
             }
         }
     }
+    public void instantiateFaces(){
+        for (int j =9; j< 12; j++){    
+            for(int i = 0; i<4; i++){
+                Card temp = new Card(RANKS[j],SUITS[i], VALUESEXCLUDINGACES[j]);
+                Deck.add(temp);
+            }
         }
+        for(int i=0; i< 4; i++){
+            Card temp = new Card(RANKS[13],SUITS[i],ACESVALUES);
+        }
+    }
+}
