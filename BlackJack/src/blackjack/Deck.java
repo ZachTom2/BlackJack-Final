@@ -5,6 +5,7 @@
  */
 package blackjack;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  *
@@ -49,5 +50,8 @@ import java.util.ArrayList;
         for(int i=0; i< 4; i++){
             Card temp = new Card(RANKS[13],SUITS[i],ACESVALUES);
         }
+    }
+    public void shuffleDecks(){
+        Collections.shuffle(Deck);
     }
 }

@@ -9,7 +9,7 @@ package blackjack;
  *
  * @author 2005988
  */
-public class BlackJack {
+public class PlayBlackJack {
 
     /**
      * @param args the command line arguments
