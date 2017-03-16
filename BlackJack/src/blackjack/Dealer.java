@@ -13,11 +13,10 @@ import java.util.ArrayList;
 
 public class Dealer {
     ArrayList<Card> dealer = new ArrayList();
-    public Dealer(int numDecks){
-        Deck deck = new Deck(numDecks);
-    }
+    public Dealer(){
+           }
     public void draw(){
-        
+       dealer.add(Deck.removeCard(1));
         
     }
     public void showCards(){

@@ -17,6 +17,8 @@ public class PlayBlackJack {
     public static void main(String[] args) {
         // TODO code application logic here
         //more stuff
+         Deck deck = new Deck(numDecks);
+         Dealer deal = new Dealer();
     }
     
 }

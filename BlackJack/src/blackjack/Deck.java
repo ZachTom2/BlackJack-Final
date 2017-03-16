@@ -14,7 +14,7 @@ import java.util.Collections;
 
 	
         public class Deck {
-        public ArrayList<Card> Deck = new ArrayList <> ();
+        public static ArrayList<Card> deck = new ArrayList <> ();
 	final String[] SUITS = {"Hearts", "Diamonds", "Clubs","Spades"};
 	final String[] RANKS = {"Two", "Three", "Four","Five","Six","Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"};
 	final int[] VALUESEXCLUDINGACES = {2,3,4,5,6,7,8,9,10,};
@@ -36,7 +36,7 @@ import java.util.Collections;
         for (int j =0; j< 9; j++){    
             for(int i = 0; i<4; i++){
                 Card temp = new Card(RANKS[j],SUITS[i], VALUESEXCLUDINGACES[j]);
-                Deck.add(temp);
+                deck.add(temp);
             }
         }
     }
@@ -44,7 +44,7 @@ import java.util.Collections;
         for (int j =9; j< 12; j++){    
             for(int i = 0; i<4; i++){
                 Card temp = new Card(RANKS[j],SUITS[i], VALUESEXCLUDINGACES[j]);
-                Deck.add(temp);
+                deck.add(temp);
             }
         }
         for(int i=0; i< 4; i++){
@@ -52,6 +52,15 @@ import java.util.Collections;
         }
     }
     public void shuffleDecks(){
-        Collections.shuffle(Deck);
+        Collections.shuffle(deck);
+    }
+
+    /**
+     *
+     * @param loc
+     * @return
+     */
+    public static Card removeCard(int loc){
+        return deck.remove(loc);
     }
 }
