@@ -30,10 +30,10 @@ public PlayBlackJack(int decks){
          Dealer deal = new Dealer(false);
          System.out.println("How many players are there?");
          numPlayers = scan.nextInt();
-             addPlayers();             
+             addPlayers(numPlayers);             
          }
-    public void addPlayers(numPlayers){
-        for(int i = 0; i<numPlayers; i++){
+    public void addPlayers(int n){
+        for(int i = 0; i<n; i++){
             
         }
     
