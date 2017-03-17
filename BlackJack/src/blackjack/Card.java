@@ -29,6 +29,6 @@ public class Card {
 	}
     @Override
 	public String toString() {
-		return type + " of " + suit + " which has a point value of" + value;
+		return "the person has " + type + " of " + suit + " which has a point value of" + value;
 	}
 }

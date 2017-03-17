@@ -4,21 +4,41 @@
  * and open the template in the editor.
  */
 package blackjack;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
  * @author 2005988
  */
 public class PlayBlackJack {
-
-    /**
-     * @param args the command line arguments
+Scanner scan = new Scanner(System.in);
+public int numDecks;
+public int numPlayers;
+ public ArrayList<Player> positionsAtTable = new ArrayList<>();
+public PlayBlackJack(int decks){
+    numDecks = decks;
+     Deck deck = new Deck(numDecks);
+    
+    
+}
+/**
      */
-    public static void main(String[] args) {
+    public void initialization() {
         // TODO code application logic here
-        //more stuff
-         Deck deck = new Deck(numDecks);
-         Dealer deal = new Dealer();
+        //more stuff      
+         Dealer deal = new Dealer(false);
+         System.out.println("How many players are there?");
+         numPlayers = scan.nextInt();
+             addPlayers();             
+         }
+    public void addPlayers(numPlayers){
+        for(int i = 0; i<numPlayers; i++){
+            
+        }
+    
     }
+    
+    
     
 }
