@@ -17,10 +17,11 @@ public int numDecks;
 public int numPlayers;
   Deck temp;
  public ArrayList<Player> positionsAtTable = new ArrayList<>();
+ Dealer deal;
 public PlayBlackJack(int decks){
     numDecks = decks;
     temp = new Deck(numDecks);
-         Dealer deal = new Dealer(false);
+         deal = new Dealer(false);
          System.out.println("How many players are there?");
          numPlayers = scan.nextInt();
              addPlayers(numPlayers);             
