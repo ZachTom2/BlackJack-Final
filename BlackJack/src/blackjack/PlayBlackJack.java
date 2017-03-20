@@ -15,23 +15,21 @@ public class PlayBlackJack {
 Scanner scan = new Scanner(System.in);
 public int numDecks;
 public int numPlayers;
+  Deck temp;
  public ArrayList<Player> positionsAtTable = new ArrayList<>();
 public PlayBlackJack(int decks){
     numDecks = decks;
-     Deck temp = new Deck(numDecks);
-    
-    
-}
-/**
-     */
-    public void initialization() {
-        // TODO code application logic here
-        //more stuff      
+    temp = new Deck(numDecks);
          Dealer deal = new Dealer(false);
          System.out.println("How many players are there?");
          numPlayers = scan.nextInt();
              addPlayers(numPlayers);             
-         }
+             
+    
+    
+}
+ 
+
     public void addPlayers(int n){
         for(int i = 0; i<n; i++){
             System.out.println("What is your name?");
@@ -42,6 +40,17 @@ public PlayBlackJack(int decks){
         }
     
     }
+    public void dealerDraw(){
+        Card deal1;
+        deal1 = temp.removeCard(0);
+        Card deal2 = temp.removeCard(0);
+        
+        deal.add(deal1);
+        deal.add(deal2);
+        
+        
+    }
+    
     
     
     

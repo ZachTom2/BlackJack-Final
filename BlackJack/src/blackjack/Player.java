@@ -18,6 +18,5 @@ public class Player {
         money = initialMoney;
         nm = name;  
     }
-    public Card hit()
-    
+
 }

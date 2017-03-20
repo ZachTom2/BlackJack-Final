@@ -18,16 +18,11 @@ public class Dealer {
     public Dealer(boolean type){
     hitOnSoft = type;       
     }
-    public void initialDraw(){
-        Card card1 = Deck.removeCard(0);
-        Card card2 = Deck.removeCard(0);
-        dealer.add(card1);
-        dealer.add(card2);
-        
-        System.out.println("The first card the dealer has is" + dealer.get(0));
-    }
     public void showCards(){
         System.out.println("The dealer now has" + dealer.get(0) + "\n" + "and " + dealer.get(1));
+    }
+    public void add(Card temp){
+        dealer.add(temp);
     }
     
 }
