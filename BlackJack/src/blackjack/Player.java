@@ -11,14 +11,13 @@ import java.util.ArrayList;
  */
 public class Player {
     
-    private int money;
+    private double money;
     public String nm;
 
-    public Player(int initialMoney, String name){
+    public Player(double initialMoney, String name){
         money = initialMoney;
-        nm = name;
-   
+        nm = name;  
     }
-    
+    public Card hit()
     
 }

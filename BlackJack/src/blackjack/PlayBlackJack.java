@@ -18,7 +18,7 @@ public int numPlayers;
  public ArrayList<Player> positionsAtTable = new ArrayList<>();
 public PlayBlackJack(int decks){
     numDecks = decks;
-     Deck deck = new Deck(numDecks);
+     Deck temp = new Deck(numDecks);
     
     
 }
@@ -34,7 +34,11 @@ public PlayBlackJack(int decks){
          }
     public void addPlayers(int n){
         for(int i = 0; i<n; i++){
-            
+            System.out.println("What is your name?");
+            String temp = scan.nextLine();
+            System.out.println("How much money would you like to deposit");
+            double t = scan.nextDouble();
+            Player play = new Player(t ,temp);
         }
     
     }
