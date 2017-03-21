@@ -38,6 +38,7 @@ public PlayBlackJack(int decks){
             System.out.println("How much money would you like to deposit");
             double t = scan.nextDouble();
             Player play = new Player(t ,temp);
+            positionsAtTable.add(play);
         }
     
     }
@@ -45,10 +46,12 @@ public PlayBlackJack(int decks){
         Card deal1;
         deal1 = temp.removeCard(0);
         Card deal2 = temp.removeCard(0);
-        
         deal.add(deal1);
         deal.add(deal2);
         
+        
+    }
+    public void playerPlay(){
         
     }
     

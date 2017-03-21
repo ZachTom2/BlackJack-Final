@@ -19,10 +19,16 @@ public class Dealer {
     hitOnSoft = type;       
     }
     public void showCards(){
-        System.out.println("The dealer now has" + dealer.get(0) + "\n" + "and " + dealer.get(1));
+        System.out.print("The dealer now has");
+        System.out.println(dealer.get(0));
+        System.out.print("and ");
+        System.out.println(dealer.get(1));
     }
     public void add(Card temp){
         dealer.add(temp);
     }
-    
+    public void show(Card temp){
+        System.out.println(temp);
+        
+    }
 }
