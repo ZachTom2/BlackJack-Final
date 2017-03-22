@@ -18,6 +18,8 @@ public int numPlayers;
   Deck temp;
  public ArrayList<Player> positionsAtTable = new ArrayList<>();
  Dealer deal;
+ int whichPlayer;
+  public boolean stop = false;
 public PlayBlackJack(int decks){
     numDecks = decks;
     temp = new Deck(numDecks);
@@ -55,7 +57,15 @@ public PlayBlackJack(int decks){
         
     }
     public void playerPlay(){
-        
+        whichPlayer = positionsAtTable.size() - 1;
+        while(whichPlayer > 0){
+            while(stop == false){
+            printPlayerMenu();
+            int choice = scan.nextInt();
+            playerChoice(choice);
+        }
+            whichPlayer--;
+    }
     }
     
     
@@ -64,14 +74,21 @@ public PlayBlackJack(int decks){
             {
             case 0:
                 System.out.println("Bye!");
+                stop = true;
+                positionsAtTable.remove(whichPlayer);
                 break;
             case 1:
-                 System.out.println
-                break;
+                 System.out.println( "has stood");
+                stop = true;
+                 break;
             case 2:
-         
-                break;
-            case 3:
+                    System.out.println("The player has hit");
+                        
+                    break;
+ 
+            
+            
+        /*    case 3:
               
                 break;
             case 4:
@@ -86,24 +103,26 @@ public PlayBlackJack(int decks){
             case 7:
              
             break;
-             
+          */   
             default:
                 System.out.println("Sorry, invalid choice");
             }
     }
-    public static void printMenu()
+    public static void printPlayerMenu()
     {
         System.out.println("\n   Menu   ");
         System.out.println("   ====");
         System.out.println("0: Quit");
         System.out.println("1: Stand)");
         System.out.println("2: Hit");
-        System.out.println("3: ");
+     /*   System.out.println("3: ");
         System.out.println("4: ");
         System.out.println("5: ");
         System.out.println("6: ");
         System.out.println("7: ");
         System.out.print("\nEnter your choice: ");
-    }
+*/
+}
+
     
 }
