@@ -11,12 +11,22 @@ import java.util.ArrayList;
  */
 public class Player {
     
-    private double money;
+    public double money;
     public String nm;
-
+    public double bet;
+    public int cardValues;
+     ArrayList<Card> playerHand = new ArrayList();
     public Player(double initialMoney, String name){
         money = initialMoney;
         nm = name;  
     }
-
+   public String toString(){
+       return nm + "has" + money +"Dollars";
+   }
+   public double getMoney(){
+       return money;
+   }
+   public void add(Card temp){
+        playerHand.add(temp);
+    }
 }
