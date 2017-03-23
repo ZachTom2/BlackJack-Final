@@ -19,6 +19,7 @@ public int numPlayers;
  public ArrayList<Player> positionsAtTable = new ArrayList<>();
  Dealer deal;
  int whichPlayer;
+ int secondThing;
   public boolean stop = false;
 public PlayBlackJack(int decks){
     numDecks = decks;
@@ -56,34 +57,65 @@ public PlayBlackJack(int decks){
         
         
     }
-    public void playerPlay(){
-        whichPlayer = positionsAtTable.size() - 1;
-        while(whichPlayer > 0){
+      public void playerDraw(int i){
+        Card play1;
+        play1 = temp.removeCard(0);
+        Card play2 = temp.removeCard(0);
+        positionsAtTable.get(i).addCard(play1);
+        positionsAtTable.get(i).addCard(play2);
+           positionsAtTable.get(i).initialDraw();
+       
+        
+        
+        
+    }
+    public void playBlackJack(){
+       
+ 
+        while(positionsAtTable.size() > 0){
             
-            
-            
-            while(stop == false){
-            printPlayerMenu();
-            int choice = scan.nextInt();
-            playerChoice(choice);
+         for(int i = positionsAtTable.size()-1; i >= 0; i --){
+             printFirstPlayerMenu();
+           int choice = scan.nextInt();
+             playerFirstChoice(choice,i);
+             
+                     
+         }
+         for(int i = positionsAtTable.size()-1; i >= 0; i --){
+            playerDraw(i);
+            positionsAtTable.get(i).initialDraw();
         }
-            whichPlayer--;
-    }
+                    dealerDraw();
+        
+                    for(int i = positionsAtTable.size()-1; i >= 0; i --) {
+                    stop= false;
+                        while(stop == false){
+                          printPlayerMenu();
+                           positionsAtTable.get(i).initialDraw();
+                          int choice  = scan.nextInt();
+                          playerChoice(choice, i); 
+                        }
+                    }
+        
+        
+        
+        
+        }
+    
     }
     
-    
-    public void playerFirstChoice(int choice){
+    public void playerFirstChoice(int choice, int loc){
         switch(choice)
             {
             case 0:
                 System.out.println("Bye!");
                 stop = true;
-                positionsAtTable.remove(whichPlayer);
+                positionsAtTable.remove(loc);
                 break;
             case 1:
                System.out.println("How much would you like to bet?");
-               positionsAtTable.get(whichPlayer).bet = scan.nextDouble();
-               positionsAtTable.get(whichPlayer).money = positionsAtTable.get(whichPlayer).money - positionsAtTable.get(whichPlayer).bet;
+               positionsAtTable.get(loc).bet = scan.nextDouble();
+               positionsAtTable.get(loc).money = positionsAtTable.get(loc).money - positionsAtTable.get(loc).bet;
                  break;
          //   case 2:
                     
@@ -111,18 +143,20 @@ public PlayBlackJack(int decks){
                 System.out.println("Sorry, invalid choice");
             }
     }
-    public void playerChoice(int choice){
+    public void playerChoice(int choice, int loc){
         switch(choice)
             {
             case 0:
-             System.out.println( positionsAtTable.get(whichPlayer) + " has stood");
+             System.out.println( positionsAtTable.get(loc) + " has stood");
                 stop = true;
                  break;
             case 1:
                  System.out.println(" The player has hit");
-                        
-                 if(positionsAtTable.get(whichPlayer).cardValue > 21){
-                     
+                        Card cardDrawn;
+                        cardDrawn = temp.removeCard(0);
+                        positionsAtTable.get(loc).addCard(cardDrawn);
+                 if(positionsAtTable.get(loc).cardValues > 21){
+                     bust();
                  }
                     break;
                 
@@ -185,12 +219,12 @@ public PlayBlackJack(int decks){
 
     
     }
-        public void winBet(){
-            positionsAtTable.get(whichPlayer).money += 2*positionsAtTable.get(whichPlayer).bet;
+        public void winBet(int loc){
+            positionsAtTable.get(loc).money += 2*positionsAtTable.get(whichPlayer).bet;
             System.out.println(positionsAtTable.get(whichPlayer).nm + " has won");
         }
-        public void loseBet(){
-            System.out.println(positionsAtTable.get(whichPlayer).nm + " has lost");
-            System.out.println(positionsAtTable.get(whichPlayer).nm + " now has" + positionsAtTable.get(whichPlayer).money +" dollars");
+        public void loseBet(int loc){
+            System.out.println(positionsAtTable.get(loc).nm + " has lost");
+            System.out.println(positionsAtTable.get(loc).nm + " now has" + positionsAtTable.get(loc).money +" dollars");
         }
 }

@@ -19,14 +19,6 @@ public class Card {
 		suit = s;
 		value = val;
 	}
-        //aces
-	public Card(String t, String s, int[] val){
-		type = t;
-		suit = s;
-		for(int i = 0; i<val.length; i++){
-			ace[i] = val[i];
-		}
-	}
     @Override
 	public String toString() {
 		return "the person has " + type + " of " + suit + " which has a point value of" + value;

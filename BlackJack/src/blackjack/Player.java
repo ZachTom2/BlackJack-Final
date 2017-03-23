@@ -26,7 +26,17 @@ public class Player {
    public double getMoney(){
        return money;
    }
-   public void add(Card temp){
+   public void addCard(Card temp){
         playerHand.add(temp);
     }
+   public void initialDraw(){
+       System.out.println(nm + " has showing" + playerHand.get(0) + playerHand.get(1));
+   }
+  public int calculateValues(){
+      for(int i = 0; i< playerHand.size(); i++){
+          cardValues += playerHand.get(i).value;
+      }
+      return cardValues;
+  }
+           
 }

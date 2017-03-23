@@ -17,8 +17,7 @@ import java.util.Collections;
         public static ArrayList<Card> deck = new ArrayList <> ();
 	final String[] SUITS = {"Hearts", "Diamonds", "Clubs","Spades"};
 	final String[] RANKS = {"Two", "Three", "Four","Five","Six","Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"};
-	final int[] VALUESEXCLUDINGACES = {2,3,4,5,6,7,8,9,10,};
-        final int[] ACESVALUES = {1,11}; 
+	final int[] VALUES = {2,3,4,5,6,7,8,9,10,11};
         
         
     public Deck(int numDecks){
@@ -35,7 +34,7 @@ import java.util.Collections;
     public void instantiateNumbers(){
         for (int j =0; j< 9; j++){    
             for(int i = 0; i<4; i++){
-                Card temp = new Card(RANKS[j],SUITS[i], VALUESEXCLUDINGACES[j]);
+                Card temp = new Card(RANKS[j],SUITS[i], VALUES[j]);
                 deck.add(temp);
             }
         }
@@ -43,12 +42,12 @@ import java.util.Collections;
     public void instantiateFaces(){
         for (int j =9; j< 12; j++){    
             for(int i = 0; i<4; i++){
-                Card temp = new Card(RANKS[j],SUITS[i], VALUESEXCLUDINGACES[j]);
+                Card temp = new Card(RANKS[j],SUITS[i], VALUES[j]);
                 deck.add(temp);
             }
         }
         for(int i=0; i< 4; i++){
-            Card temp = new Card(RANKS[13],SUITS[i],ACESVALUES);
+            Card temp = new Card(RANKS[13],SUITS[i],11);
         }
     }
     public void shuffleDecks(){
