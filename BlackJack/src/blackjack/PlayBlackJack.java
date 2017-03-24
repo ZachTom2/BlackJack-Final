@@ -64,7 +64,10 @@ public PlayBlackJack(int decks){
         positionsAtTable.get(i).addCard(play1);
         positionsAtTable.get(i).addCard(play2);
            positionsAtTable.get(i).initialDraw();
-       
+        positionsAtTable.get(i).calculateValues();
+        if(positionsAtTable.get(i).cardValues == 21 ){
+            blackJack(i);
+        }
         
         
         
@@ -155,9 +158,10 @@ public PlayBlackJack(int decks){
                         Card cardDrawn;
                         cardDrawn = temp.removeCard(0);
                         positionsAtTable.get(loc).addCard(cardDrawn);
-                 if(positionsAtTable.get(loc).cardValues > 21){
-                     bust();
-                 }
+                    int val =     positionsAtTable.get(loc).calculateValues();
+                    if(val > 21){
+                        bust(loc);
+                    }
                     break;
                 
         //    case 2:
@@ -226,5 +230,38 @@ public PlayBlackJack(int decks){
         public void loseBet(int loc){
             System.out.println(positionsAtTable.get(loc).nm + " has lost");
             System.out.println(positionsAtTable.get(loc).nm + " now has" + positionsAtTable.get(loc).money +" dollars");
+            for( int j = 0, j < positionsAtTable.get(loc).playerHand.size(); j ++){
+                positionsAtTable.get(loc).playerHand.remove(j);
+            }
+            if(positionsAtTable.get(loc).cardValues > 21){
+                System.out.println(positionsAtTable.get(loc).nm + " has busted");
+            }
+            else{
+                System.out.println(positionsAtTable.get(loc).nm + " has lost");
+            }
         }
+  
+        public void bust(int loc){
+            System.out.println(positionsAtTable.get(loc).nm + " has lost");
+            System.out.println(positionsAtTable.get(loc).nm + " now has" + positionsAtTable.get(loc).money +" dollars");
+            for( int j = 0, j < positionsAtTable.get(loc).playerHand.size(); j ++){
+                positionsAtTable.get(loc).playerHand.remove(j);
+            }
+         
+                System.out.println(positionsAtTable.get(loc).nm + " has busted");
+            }
+            public void blackJack(int loc){
+                System.out.println(positionsAtTable.get(loc).nm + "Has gotten blackjack");
+                
+                
+            }
+
+
+
+
+
 }
+        
+
+        
+        
