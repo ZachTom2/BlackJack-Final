@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author 2005988
  */
 
-
+//Initializes the dealer
 public class Dealer {
     ArrayList<Card> dealer = new ArrayList();
     private int numberOfPoints=0;
@@ -18,15 +18,18 @@ public class Dealer {
     public Dealer(boolean type){
     hitOnSoft = type;       
     }
+    //Shows the initial hand
     public void showCards(){
         System.out.print("The dealer now has");
         System.out.println(dealer.get(0));
         System.out.print("and ");
         System.out.println(dealer.get(1));
     }
+    //Adds a card to the dealer's hand;
     public void add(Card temp){
         dealer.add(temp);
     }
+    //Prints out the specific card;
     public void show(Card temp){
         System.out.println(temp);
         

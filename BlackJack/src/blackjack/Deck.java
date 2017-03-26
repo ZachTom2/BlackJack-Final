@@ -12,14 +12,14 @@ import java.util.Collections;
  * @author 2005988
  */
 
-	
+	//Instance variables
         public class Deck {
         public static ArrayList<Card> deck = new ArrayList <> ();
 	final String[] SUITS = {"Hearts", "Diamonds", "Clubs","Spades"};
 	final String[] RANKS = {"Two", "Three", "Four","Five","Six","Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"};
 	final int[] VALUES = {2,3,4,5,6,7,8,9,10,11};
         
-        
+        //Creates the deck object
     public Deck(int numDecks){
 		//
                 for(int i=0; i<numDecks; i++){
@@ -27,10 +27,12 @@ import java.util.Collections;
 
               }
         }
+    //Creates the deck
     public void createDecks(){
         instantiateNumbers();
         instantiateFaces();
     }
+    //Creates the number cards in the deck and adds them to the deck
     public void instantiateNumbers(){
         for (int j =0; j< 9; j++){    
             for(int i = 0; i<4; i++){
@@ -39,6 +41,7 @@ import java.util.Collections;
             }
         }
     }
+    //Creates the cace cards 
     public void instantiateFaces(){
         for (int j =9; j< 12; j++){    
             for(int i = 0; i<4; i++){
@@ -50,6 +53,7 @@ import java.util.Collections;
             Card temp = new Card(RANKS[13],SUITS[i],11);
         }
     }
+    //Shuffles the deck
     public void shuffleDecks(){
         Collections.shuffle(deck);
     }
@@ -59,6 +63,7 @@ import java.util.Collections;
      * @param loc
      * @return
      */
+    //Removes a card
     public static Card removeCard(int loc){
         return deck.remove(loc);
     }

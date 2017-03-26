@@ -21,7 +21,10 @@ public int numPlayers;
  int whichPlayer;
  int secondThing;
   public boolean stop = false;
-public PlayBlackJack(int decks){
+
+  
+  //Initializes the game
+  public PlayBlackJack(int decks){
     numDecks = decks;
     temp = new Deck(numDecks);
          deal = new Dealer(false);
@@ -33,7 +36,7 @@ public PlayBlackJack(int decks){
     
 }
  
-
+//This makes the players and adds them to the table.
     public void addPlayers(int n){
         for(int i = 0; i<n; i++){
             System.out.println("What is your name?");
@@ -45,6 +48,7 @@ public PlayBlackJack(int decks){
         }
     
     }
+    //This adds two cards to the dealer's hand
     public void dealerDraw(){
         Card deal1;
         deal1 = temp.removeCard(0);
@@ -57,6 +61,7 @@ public PlayBlackJack(int decks){
         
         
     }
+    //This adds two cards to the player's hand
       public void playerDraw(int i){
         Card play1;
         play1 = temp.removeCard(0);
@@ -72,6 +77,7 @@ public PlayBlackJack(int decks){
         
         
     }
+      //This is what the game runs to play blackjack
     public void playBlackJack(){
        
  
@@ -99,6 +105,8 @@ public PlayBlackJack(int decks){
                           playerChoice(choice, i); 
                         }
                     }
+                    dealerPlay();
+                    determineOutcomes();
         
         
         
@@ -106,7 +114,7 @@ public PlayBlackJack(int decks){
         }
     
     }
-    
+    //This takes the answer of
     public void playerFirstChoice(int choice, int loc){
         switch(choice)
             {
@@ -146,6 +154,7 @@ public PlayBlackJack(int decks){
                 System.out.println("Sorry, invalid choice");
             }
     }
+    //This takes the answer of the player and actually modifies the player
     public void playerChoice(int choice, int loc){
         switch(choice)
             {
@@ -189,6 +198,7 @@ public PlayBlackJack(int decks){
                 System.out.println("Sorry, invalid choice");
             }
     }
+    //This is the repeating question that a player is given
     public static void printFirstPlayerMenu()
     {
         System.out.println("\n   Menu   ");
@@ -205,6 +215,7 @@ public PlayBlackJack(int decks){
         System.out.print("\nEnter your choice: ");
 
 }
+    //This prints out the initial choice a player is given
         public static void printPlayerMenu()
     {
         System.out.println("\n   Menu   ");
@@ -223,44 +234,50 @@ public PlayBlackJack(int decks){
 
     
     }
+        //Modifies the player's money and prints that the player has won and how much money the player has 
         public void winBet(int loc){
             positionsAtTable.get(loc).money += 2*positionsAtTable.get(whichPlayer).bet;
-            System.out.println(positionsAtTable.get(whichPlayer).nm + " has won");
+            System.out.println(positionsAtTable.get(whichPlayer).nm + " has won ," + positionsAtTable.get(whichPlayer).nm + "now has " + positionsAtTable.get(whichPlayer).money + " dollars.");
         }
+        //Prints out that you lost and removes the cards from the player's hand
         public void loseBet(int loc){
             System.out.println(positionsAtTable.get(loc).nm + " has lost");
             System.out.println(positionsAtTable.get(loc).nm + " now has" + positionsAtTable.get(loc).money +" dollars");
-            for( int j = 0, j < positionsAtTable.get(loc).playerHand.size(); j ++){
+             int j = 0;
+           while( j < positionsAtTable.get(loc).playerHand.size()){
                 positionsAtTable.get(loc).playerHand.remove(j);
+                j--;
+           }
+              
             }
-            if(positionsAtTable.get(loc).cardValues > 21){
-                System.out.println(positionsAtTable.get(loc).nm + " has busted");
-            }
-            else{
-                System.out.println(positionsAtTable.get(loc).nm + " has lost");
-            }
-        }
-  
+        
+        //prints out a special message if the player busted
         public void bust(int loc){
-            System.out.println(positionsAtTable.get(loc).nm + " has lost");
+          
+            
+            System.out.println(positionsAtTable.get(loc).nm + " has busted");
             System.out.println(positionsAtTable.get(loc).nm + " now has" + positionsAtTable.get(loc).money +" dollars");
-            for( int j = 0, j < positionsAtTable.get(loc).playerHand.size(); j ++){
+           int j = 0;
+           while( j < positionsAtTable.get(loc).playerHand.size()){
                 positionsAtTable.get(loc).playerHand.remove(j);
+                j--;
             }
          
-                System.out.println(positionsAtTable.get(loc).nm + " has busted");
+               
             }
+        //prints out the message for blackjack
             public void blackJack(int loc){
                 System.out.println(positionsAtTable.get(loc).nm + "Has gotten blackjack");
                 
                 
             }
+         }
 
 
 
 
 
-}
+
         
 
         

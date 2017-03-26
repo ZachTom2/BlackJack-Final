@@ -9,6 +9,7 @@ package blackjack;
  *
  * @author 2005988
  */
+// Constructor for the card class
 public class Card {
     public String type;
 	public String suit;
@@ -20,6 +21,7 @@ public class Card {
 		value = val;
 	}
     @Override
+    //Prints out the current card
 	public String toString() {
 		return "the person has " + type + " of " + suit + " which has a point value of" + value;
 	}
