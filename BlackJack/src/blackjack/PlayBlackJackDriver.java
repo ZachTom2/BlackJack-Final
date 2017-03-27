@@ -10,9 +10,9 @@ package blackjack;
  * @author ZachT
  */
 public class PlayBlackJackDriver {
-  public static void main(){
+  public static void main(String args[]){
     PlayBlackJack classic = new PlayBlackJack(2);
     classic.playBlackJack();
             
             }
-            }
+}
