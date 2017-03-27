@@ -17,7 +17,7 @@ import java.util.Collections;
         public static ArrayList<Card> deck = new ArrayList <> ();
 	final String[] SUITS = {"Hearts", "Diamonds", "Clubs","Spades"};
 	final String[] RANKS = {"Two", "Three", "Four","Five","Six","Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"};
-	final int[] VALUES = {2,3,4,5,6,7,8,9,10,11};
+	final int[] VALUES = {2,3,4,5,6,7,8,9,10,10,10,10,11};
         
         //Creates the deck object
     public Deck(int numDecks){
@@ -26,6 +26,7 @@ import java.util.Collections;
                 createDecks();               
 
               }
+                shuffleDecks();
         }
     //Creates the deck
     public void createDecks(){
@@ -50,7 +51,8 @@ import java.util.Collections;
             }
         }
         for(int i=0; i< 4; i++){
-            Card temp = new Card(RANKS[13],SUITS[i],11);
+            Card temp = new Card(RANKS[12],SUITS[i],11);
+            deck.add(temp);
         }
     }
     //Shuffles the deck

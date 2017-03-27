@@ -23,6 +23,6 @@ public class Card {
     @Override
     //Prints out the current card
 	public String toString() {
-		return "The person now has " + type + " of " + suit + " which has a point value of" + value;
+		return type + " of " + suit + " which has a point value of " + value;
 	}
 }

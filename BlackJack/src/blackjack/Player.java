@@ -24,7 +24,7 @@ public class Player {
     }
      //A toString method to return the name and the amount of money the player has
    public String toString(){
-       return nm + "has" + money +"Dollars";
+       return nm + " has " + money +" Dollars";
    }
    public double getMoney(){
        return money;

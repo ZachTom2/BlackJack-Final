@@ -27,10 +27,7 @@ public int numPlayers;
     numDecks = decks;
     temp = new Deck(numDecks);
          deal = new Dealer(false);
-         System.out.println("How many players are there?");
-         numPlayers = scan.nextInt();
-             addPlayers(numPlayers);             
-             
+         
     
     
 }
@@ -39,8 +36,9 @@ public int numPlayers;
     public void addPlayers(int n){
         for(int i = 0; i<n; i++){
             System.out.println("What is your name?");
-            String temp = scan.nextLine();
-            System.out.println("How much money would you like to deposit");
+            String temp = scan.next();
+
+            System.out.println("How much money would you like to deposit?");
             double t = scan.nextDouble();
             Player play = new Player(t ,temp);
             positionsAtTable.add(play);
@@ -67,30 +65,44 @@ public int numPlayers;
         Card play2 = temp.removeCard(0);
         positionsAtTable.get(i).addCard(play1);
         positionsAtTable.get(i).addCard(play2);
-           positionsAtTable.get(i).initialDraw();
+        positionsAtTable.get(i).initialDraw();
         positionsAtTable.get(i).calculateValues();
         
         
         
     }
-      //This is what the game runs to play blackjack
-    public void playBlackJack(){
-       
- 
-        while(positionsAtTable.size() > 0){
-            
+      public void firstThing(){
          for(int i = positionsAtTable.size()-1; i >= 0; i --){
              printFirstPlayerMenu();
            int choice = scan.nextInt();
              playerFirstChoice(choice,i);
+             if(stop==true){
+                 break;
+             }   
+      }
+      }
+      public void addPeople(){
+              System.out.println("How many players are there?");
+         numPlayers = scan.nextInt();
+             addPlayers(numPlayers);  
+          
              
-                     
-         }
-         for(int i = positionsAtTable.size()-1; i >= 0; i --){
+             
+      }
+      public void playersDraw(){
+           for(int i = positionsAtTable.size()-1; i >= 0; i --){
             playerDraw(i);
-            positionsAtTable.get(i).initialDraw();
         }
                     dealerDraw();
+      }
+
+      //This is what the game runs to play blackjack
+    public void playBlackJack(){
+        firstThing();
+        addPeople();
+        playersDraw();
+      
+        
         
                     for(int i = positionsAtTable.size()-1; i >= 0; i --) {
                     stop= false;
@@ -104,11 +116,12 @@ public int numPlayers;
                     determineOutcomes();
         
         
+         }
         
         
-        }
     
-    }
+    
+    //This is what the dealer does in blackjack
     public void dealerPlay(){
         int choice=0;
         if(deal.hitOnSoft == true){
@@ -218,9 +231,6 @@ public int numPlayers;
                         stop = true;
                     }
                     break;
-
-            default:
-                System.out.println("Sorry, invalid choice");
             }
     }
     //This is the repeating question that a player is given
@@ -229,7 +239,7 @@ public int numPlayers;
         System.out.println("\n   Menu   ");
         System.out.println("   ====");
         System.out.println("0: Quit");
-        System.out.println("1: Bet)");
+        System.out.println("1: Bet");
         System.out.print("\nEnter your choice: ");
 
 }
@@ -238,10 +248,9 @@ public int numPlayers;
     {
         System.out.println("\n   Menu   ");
         System.out.println("   ====");
-     
         System.out.println("0: Stand)");
-        System.out.println("1: Hit");
-        System.out.print("\nEnter your choice: ");
+        System.out.println("1: Hit ");
+        System.out.println("Enter your choice: ");
 
 
     
@@ -258,7 +267,7 @@ public int numPlayers;
              int j = 0;
            while( j < positionsAtTable.get(loc).playerHand.size()){
                 positionsAtTable.get(loc).playerHand.remove(j);
-                j--;
+                j++;
            }
               
             }
@@ -273,7 +282,7 @@ public int numPlayers;
            positionsAtTable.get(loc).busted = true;
            while( j < positionsAtTable.get(loc).playerHand.size()){
                 positionsAtTable.get(loc).playerHand.remove(j);
-                j--;
+                j++;
             }
          
                
@@ -376,8 +385,9 @@ public int numPlayers;
             public void push(int loc){
                 System.out.println("The dealer and " + positionsAtTable.get(loc).nm + "have pushed");
                 positionsAtTable.get(loc).money += positionsAtTable.get(loc).bet;
-            }
 }
+}}
+
 
 
 
