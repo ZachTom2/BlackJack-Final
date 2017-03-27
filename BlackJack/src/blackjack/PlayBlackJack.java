@@ -95,12 +95,14 @@ public int numPlayers;
         }
                     dealerDraw();
       }
+      
 
       //This is what the game runs to play blackjack
     public void playBlackJack(){
         firstThing();
         addPeople();
         playersDraw();
+        
       
         
         
@@ -233,6 +235,7 @@ public int numPlayers;
                     break;
             }
     }
+
     //This is the repeating question that a player is given
     public static void printFirstPlayerMenu()
     {
@@ -386,7 +389,7 @@ public int numPlayers;
                 System.out.println("The dealer and " + positionsAtTable.get(loc).nm + "have pushed");
                 positionsAtTable.get(loc).money += positionsAtTable.get(loc).bet;
 }
-}}
+}
 
 
 
