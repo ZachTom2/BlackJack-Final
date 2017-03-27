@@ -16,6 +16,7 @@ public class Player {
     public double bet;
     public int cardValues;
      ArrayList<Card> playerHand = new ArrayList();
+     public boolean busted=false;
    
      public Player(double initialMoney, String name){
         money = initialMoney;

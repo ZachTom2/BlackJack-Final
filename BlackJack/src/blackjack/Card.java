@@ -11,10 +11,10 @@ package blackjack;
  */
 // Constructor for the card class
 public class Card {
+    //instance variables
     public String type;
 	public String suit;
 	public int value;
-	public int[] ace = new int[2]; 
 	public Card(String t, String s, int val){
 		type = t;
 		suit = s;
@@ -23,6 +23,6 @@ public class Card {
     @Override
     //Prints out the current card
 	public String toString() {
-		return "the person has " + type + " of " + suit + " which has a point value of" + value;
+		return "The person now has " + type + " of " + suit + " which has a point value of" + value;
 	}
 }

@@ -13,10 +13,12 @@ import java.util.ArrayList;
 //Initializes the dealer
 public class Dealer {
     ArrayList<Card> dealer = new ArrayList();
-    private int numberOfPoints=0;
+    public int numberOfPoints=0;
     public boolean hitOnSoft;
+    public boolean bust = false;
     public Dealer(boolean type){
     hitOnSoft = type;       
+    
     }
     //Shows the initial hand
     public void showCards(){
@@ -34,4 +36,10 @@ public class Dealer {
         System.out.println(temp);
         
     }
+     public int calculateValues(){
+      for(int i = 0; i< dealer.size(); i++){
+          numberOfPoints += dealer.get(i).value;
+      }
+      return numberOfPoints;
+  }
 }

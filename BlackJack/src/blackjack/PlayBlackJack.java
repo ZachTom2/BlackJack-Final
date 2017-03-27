@@ -18,9 +18,8 @@ public int numPlayers;
   Deck temp;
  public ArrayList<Player> positionsAtTable = new ArrayList<>();
  Dealer deal;
- int whichPlayer;
- int secondThing;
   public boolean stop = false;
+  public boolean ace =false;
 
   
   //Initializes the game
@@ -70,9 +69,6 @@ public int numPlayers;
         positionsAtTable.get(i).addCard(play2);
            positionsAtTable.get(i).initialDraw();
         positionsAtTable.get(i).calculateValues();
-        if(positionsAtTable.get(i).cardValues == 21 ){
-            blackJack(i);
-        }
         
         
         
@@ -98,9 +94,8 @@ public int numPlayers;
         
                     for(int i = positionsAtTable.size()-1; i >= 0; i --) {
                     stop= false;
-                        while(stop == false){
+                        while(stop == false  && positionsAtTable.get(i).busted == false){
                           printPlayerMenu();
-                           positionsAtTable.get(i).initialDraw();
                           int choice  = scan.nextInt();
                           playerChoice(choice, i); 
                         }
@@ -114,13 +109,78 @@ public int numPlayers;
         }
     
     }
-    //This takes the answer of
+    public void dealerPlay(){
+        int choice=0;
+        if(deal.hitOnSoft == true){
+           choice = 1;
+                                   
+        }
+         dealerChoice(choice);
+        
+        
+        
+    }
+            
+            
+            
+            //The dealer options, whether hit or stand on soft 17
+            public void dealerChoice(int choice){
+        switch(choice)
+            {
+            //stand on soft 17;
+            case 0:
+               if(deal.calculateValues()< 17){
+                   while(deal.calculateValues() < 17){
+                       Card cardDrawn;
+                        cardDrawn = temp.removeCard(0);
+                        deal.add(cardDrawn);
+                        System.out.println(cardDrawn);
+                        deal.calculateValues();
+                        if(dealCheckAce() == true&&deal.calculateValues()>21){
+                            deal.numberOfPoints -= 10;
+                        }
+                         if(deal.calculateValues() > 21){
+                            dealerBust();
+                        
+                   }
+                         else{
+                             System.out.println("The dealer has stood");
+                         }
+                    }
+
+                break;
+               }
+            case 1:
+                      if(deal.calculateValues() <= 17){
+                   while(deal.calculateValues() < 17 || (deal.calculateValues() == 17 && (deal.dealer.get(0).value==11 || deal.dealer.get(1).value == 11))){
+                       int initialValues = deal.calculateValues();
+                       Card cardDrawn;
+                        cardDrawn = temp.removeCard(0);
+                        deal.add(cardDrawn);
+                        System.out.println(cardDrawn);
+                        deal.calculateValues();
+                        if(dealCheckAce() == true &&deal.calculateValues()>21){
+                            deal.numberOfPoints -= 10;
+                        }
+                        if(deal.calculateValues() > 21){
+                            dealerBust();
+                        }
+                    }
+                    }
+
+                    
+                    break;
+        }
+            }
+            
+    //This takes the answer of the first choice and 
     public void playerFirstChoice(int choice, int loc){
         switch(choice)
             {
             case 0:
                 System.out.println("Bye!");
                 stop = true;
+                System.out.println(positionsAtTable.get(loc));
                 positionsAtTable.remove(loc);
                 break;
             case 1:
@@ -128,28 +188,7 @@ public int numPlayers;
                positionsAtTable.get(loc).bet = scan.nextDouble();
                positionsAtTable.get(loc).money = positionsAtTable.get(loc).money - positionsAtTable.get(loc).bet;
                  break;
-         //   case 2:
-                    
-           //     break;
- 
-            
-            
-        /*    case 3:
-              
-                break;
-            case 4:
-               
-                break;
-             
-            case 5:
-                break;
-            case 6:
-            
-                break;
-            case 7:
-             
-            break;
-          */   
+
             default:
                 System.out.println("Sorry, invalid choice");
             }
@@ -167,33 +206,19 @@ public int numPlayers;
                         Card cardDrawn;
                         cardDrawn = temp.removeCard(0);
                         positionsAtTable.get(loc).addCard(cardDrawn);
+                        System.out.println(cardDrawn);
+                        
                     int val =     positionsAtTable.get(loc).calculateValues();
+                    //modifies the hand so the player doesn't bust
+                    if(val > 21 && checkAce(loc) == true){
+                        positionsAtTable.get(loc).cardValues-= 10;
+                    }
                     if(val > 21){
                         bust(loc);
+                        stop = true;
                     }
                     break;
-                
-        //    case 2:
-                   
- 
-            
-            
-        /*    case 3:
-              
-                break;
-            case 4:
-               
-                break;
-             
-            case 5:
-                break;
-            case 6:
-            
-                break;
-            case 7:
-             
-            break;
-          */   
+
             default:
                 System.out.println("Sorry, invalid choice");
             }
@@ -205,13 +230,6 @@ public int numPlayers;
         System.out.println("   ====");
         System.out.println("0: Quit");
         System.out.println("1: Bet)");
-       // System.out.println("1: Hit");
-     /*   System.out.println("3: ");
-        System.out.println("4: ");
-        System.out.println("5: ");
-        System.out.println("6: ");
-        System.out.println("7: ");
-*/
         System.out.print("\nEnter your choice: ");
 
 }
@@ -220,15 +238,9 @@ public int numPlayers;
     {
         System.out.println("\n   Menu   ");
         System.out.println("   ====");
-       // System.out.println("0: Quit");
+     
         System.out.println("0: Stand)");
         System.out.println("1: Hit");
-     /*   System.out.println("3: ");
-        System.out.println("4: ");
-        System.out.println("5: ");
-        System.out.println("6: ");
-        System.out.println("7: ");
-*/
         System.out.print("\nEnter your choice: ");
 
 
@@ -236,8 +248,8 @@ public int numPlayers;
     }
         //Modifies the player's money and prints that the player has won and how much money the player has 
         public void winBet(int loc){
-            positionsAtTable.get(loc).money += 2*positionsAtTable.get(whichPlayer).bet;
-            System.out.println(positionsAtTable.get(whichPlayer).nm + " has won ," + positionsAtTable.get(whichPlayer).nm + "now has " + positionsAtTable.get(whichPlayer).money + " dollars.");
+            positionsAtTable.get(loc).money += 2*positionsAtTable.get(loc).bet;
+            System.out.println(positionsAtTable.get(loc).nm + " has won ," + positionsAtTable.get(loc).nm + "now has " + positionsAtTable.get(loc).money + " dollars.");
         }
         //Prints out that you lost and removes the cards from the player's hand
         public void loseBet(int loc){
@@ -258,6 +270,7 @@ public int numPlayers;
             System.out.println(positionsAtTable.get(loc).nm + " has busted");
             System.out.println(positionsAtTable.get(loc).nm + " now has" + positionsAtTable.get(loc).money +" dollars");
            int j = 0;
+           positionsAtTable.get(loc).busted = true;
            while( j < positionsAtTable.get(loc).playerHand.size()){
                 positionsAtTable.get(loc).playerHand.remove(j);
                 j--;
@@ -267,11 +280,104 @@ public int numPlayers;
             }
         //prints out the message for blackjack
             public void blackJack(int loc){
-                System.out.println(positionsAtTable.get(loc).nm + "Has gotten blackjack");
+                positionsAtTable.get(loc).money += 3*positionsAtTable.get(loc).bet;
+                System.out.println(positionsAtTable.get(loc).nm + " has gotten blackjack and now has " + positionsAtTable.get(loc).money);
                 
                 
             }
-         }
+         
+            //Checks if there is an ace in the hand
+         public boolean checkAce(int loc){
+            boolean ace = false;
+            for(int i = 0; i< positionsAtTable.get(loc).playerHand.size(); i ++){
+               Card temp = positionsAtTable.get(loc).playerHand.get(i);
+                if(temp.value == 11);
+                ace = true;
+            }
+            
+            
+            return ace;
+
+    }
+              //Checks if there is an ace in the hand
+           public boolean dealCheckAce(){
+            boolean ace = false;
+            for(int i = 0; i< deal.dealer.size(); i ++){
+               Card temp =deal.dealer.get(i);
+                if(temp.value == 11);
+                ace = true;
+            }
+            
+            
+            return ace;
+
+    }
+           //Says that the dealer has busted;
+           public void dealerBust(){
+               System.out.println("The dealer has busted");
+               deal.bust = true;
+           }
+           //Determines the final outcomes
+           public void determineOutcomes(){
+                if(deal.bust == false){
+               for(int i = 0; i < positionsAtTable.size(); i++){
+                
+                   if(positionsAtTable.get(i).busted==false ){
+                      outComes( compareHands(i), i);
+                   }
+               }
+               
+               }
+                else if(deal.bust == true){
+                      
+               for(int i = 0; i < positionsAtTable.size(); i++){
+                if(positionsAtTable.get(i).busted==false ){
+                    winBet(i);
+                }
+               }
+             }
+                
+           }
+            public void outComes(int choice, int loc){
+        switch(choice)
+            {
+            case 0:
+                if(positionsAtTable.get(loc).cardValues == 21 && positionsAtTable.get(loc).playerHand.size() == 2){
+                    blackJack(loc);
+                }
+                else{
+                winBet(loc);
+                }
+                break;
+            case 1:
+                loseBet(loc);
+                 break;
+            case 2:
+                push(loc);
+                break;
+                
+        }
+            }
+            public int compareHands(int loc){
+               int compare;
+                if(positionsAtTable.get(loc).cardValues > deal.calculateValues() ){
+                   compare = 0;
+                }
+                else if(positionsAtTable.get(loc).cardValues < deal.calculateValues()){
+                    compare = 1;
+                }
+                else{
+                    compare  =2;
+                    
+                }
+                
+                return compare;
+            }
+            public void push(int loc){
+                System.out.println("The dealer and " + positionsAtTable.get(loc).nm + "have pushed");
+                positionsAtTable.get(loc).money += positionsAtTable.get(loc).bet;
+            }
+}
 
 
 
