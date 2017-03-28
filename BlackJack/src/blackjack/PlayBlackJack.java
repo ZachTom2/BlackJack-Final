@@ -97,21 +97,21 @@ public int numPlayers;
       
 public void mainProcess(){
     for(int i = positionsAtTable.size()-1; i >= 0; i --) {
-                    stop= false;
+                    stop = false;
                         while(stop == false  && positionsAtTable.get(i).busted == false){
                           printPlayerMenu();
                           int choice  = scan.nextInt();
                           playerChoice(choice, i); 
                         }
                     }
-                       // boolean bust = true;
-                    //for(int j = 0; j<positionsAtTable.size(); j++){
-                      //  if(positionsAtTable.get(j).busted == false){
-                        //    bust = false;
-                       // }
+                /*        boolean bust = true;
+                    for(int j = 0; j<positionsAtTable.size(); j++){
+                       if(positionsAtTable.get(j).busted == false){
+                        bust = false;
+                      }
                         
-                    //}
-                    ///if(bust = false){
+                    }
+                    if(bust = false){ */
                     dealerPlay();
                     determineOutcomes();
                  //   }
@@ -147,7 +147,14 @@ public void mainProcess(){
         
     }
             
-            
+            public void dealDrawCard(){
+                
+                Card cardDrawn;
+                        cardDrawn = temp.removeCard(0);
+                        deal.add(cardDrawn);
+                        System.out.println("The dealer has drawn "+ cardDrawn);
+                        deal.calculateValues();
+            }
             
             //The dealer options, whether hit or stand on soft 17
             public void dealerChoice(int choice){
@@ -158,13 +165,11 @@ public void mainProcess(){
               // System.out.println("The dealer has flipped over a " + deal.dealer.get(1));
                 if(deal.calculateValues()< 17){
                    while(deal.calculateValues() < 17){
-                       Card cardDrawn;
-                        cardDrawn = temp.removeCard(0);
-                        deal.add(cardDrawn);
-                        System.out.println(cardDrawn);
-                        deal.calculateValues();
+                       dealDrawCard();
+                   }
+                }
                         if(dealCheckAce() == true && deal.calculateValues()>21){
-                            deal.numberOfPoints -= 10;
+                            deal.numberOfPoints = deal.numberOfPoints - 10;
                         }
                          if(deal.calculateValues() > 21){
                             dealerBust();
@@ -174,10 +179,10 @@ public void mainProcess(){
                              System.out.println("The dealer has stood");
                              break;
                          }
-                    }
+                    
 
                 break;
-               }
+               
             case 1:
                  //System.out.println("The dealer has " + deal.dealer.get(1));     
                 if(deal.calculateValues() <= 17){
@@ -189,19 +194,20 @@ public void mainProcess(){
                         System.out.println("The dealer now has " + cardDrawn);
                         deal.calculateValues();
                         if(dealCheckAce() == true &&deal.calculateValues()>21){
-                            deal.numberOfPoints -= 10;
+                            deal.numberOfPoints = deal.numberOfPoints - 10;
                         }
                         if(deal.calculateValues() > 21){
                             dealerBust();
                         }
                     }
-                    }
+                    
 
                     
                     break;
         }
             }
             
+            }
     //This takes the answer of the first choice and 
     public void playerFirstChoice(int choice, int loc){
         switch(choice)
@@ -238,17 +244,20 @@ public void mainProcess(){
                         positionsAtTable.get(loc).addCard(cardDrawn);
                         System.out.println(cardDrawn);
                         
-                    int val =     positionsAtTable.get(loc).calculateValues();
+                    //int val =     positionsAtTable.get(loc).calculateValues();
                     //modifies the hand so the player doesn't bust
-                    if(val > 21 && checkAce(loc) == true){
-                        positionsAtTable.get(loc).cardValues-= 10;
+                    if( positionsAtTable.get(loc).calculateValues()>21 && checkAce(loc) == true){
+                        positionsAtTable.get(loc).cardValues = positionsAtTable.get(loc).cardValues - 10;
                     }
-                    if(val > 21){
+                    if(positionsAtTable.get(loc).calculateValues() > 21){
                         bust(loc);
                         stop = true;
                     }
                     break;
-            }
+}
+
+    
+
     }
 
     //This is the repeating question that a player is given
@@ -401,7 +410,7 @@ public void mainProcess(){
                 return compare;
             }
             public void push(int loc){
-                System.out.println("The dealer and " + positionsAtTable.get(loc).nm + "have pushed");
+                System.out.println("The dealer and " + positionsAtTable.get(loc).nm + " have pushed");
                 positionsAtTable.get(loc).money += positionsAtTable.get(loc).bet;
 }
 }
