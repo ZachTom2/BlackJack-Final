@@ -104,17 +104,17 @@ public void mainProcess(){
                           playerChoice(choice, i); 
                         }
                     }
-                        boolean bust = true;
-                    for(int j = 0; j<positionsAtTable.size(); j++){
-                        if(positionsAtTable.get(j).busted == false){
-                            bust = false;
-                        }
+                       // boolean bust = true;
+                    //for(int j = 0; j<positionsAtTable.size(); j++){
+                      //  if(positionsAtTable.get(j).busted == false){
+                        //    bust = false;
+                       // }
                         
-                    }
-                    if(bust = false){
+                    //}
+                    ///if(bust = false){
                     dealerPlay();
                     determineOutcomes();
-                    }
+                 //   }
                     }
       //This is what the game runs to play blackjack
     public void playBlackJack(){
@@ -124,7 +124,7 @@ public void mainProcess(){
         if(stop == false){
         playersDraw();     
         mainProcess();
-                  
+                  stop = false;
         }
         
         }
@@ -140,6 +140,7 @@ public void mainProcess(){
            choice = 1;
                                    
         }
+           System.out.println("The dealer has flipped over a " + deal.dealer.get(1));
          dealerChoice(choice);
         
         
@@ -154,7 +155,7 @@ public void mainProcess(){
             {
             //stand on soft 17;
             case 0:
-               System.out.println("The dealer has flipped over a " +deal.dealer.get(1));
+              // System.out.println("The dealer has flipped over a " + deal.dealer.get(1));
                 if(deal.calculateValues()< 17){
                    while(deal.calculateValues() < 17){
                        Card cardDrawn;
@@ -162,7 +163,7 @@ public void mainProcess(){
                         deal.add(cardDrawn);
                         System.out.println(cardDrawn);
                         deal.calculateValues();
-                        if(dealCheckAce() == true&&deal.calculateValues()>21){
+                        if(dealCheckAce() == true && deal.calculateValues()>21){
                             deal.numberOfPoints -= 10;
                         }
                          if(deal.calculateValues() > 21){
@@ -171,20 +172,21 @@ public void mainProcess(){
                    }
                          else{
                              System.out.println("The dealer has stood");
+                             break;
                          }
                     }
 
                 break;
                }
             case 1:
-                 System.out.println("The dealer has " + deal.dealer.get(1));     
+                 //System.out.println("The dealer has " + deal.dealer.get(1));     
                 if(deal.calculateValues() <= 17){
                    while(deal.calculateValues() < 17 || (deal.calculateValues() == 17 && (deal.dealer.get(0).value==11 || deal.dealer.get(1).value == 11))){
                        int initialValues = deal.calculateValues();
                        Card cardDrawn;
                         cardDrawn = temp.removeCard(0);
                         deal.add(cardDrawn);
-                        System.out.println(cardDrawn);
+                        System.out.println("The dealer now has " + cardDrawn);
                         deal.calculateValues();
                         if(dealCheckAce() == true &&deal.calculateValues()>21){
                             deal.numberOfPoints -= 10;
