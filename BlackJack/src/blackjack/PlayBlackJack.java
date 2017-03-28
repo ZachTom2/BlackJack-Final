@@ -19,7 +19,6 @@ public int numPlayers;
  public ArrayList<Player> positionsAtTable = new ArrayList<>();
  Dealer deal;
   public boolean stop = false;
-  public boolean ace =false;
 
   
   //Initializes the game
@@ -96,17 +95,8 @@ public int numPlayers;
                     dealerDraw();
       }
       
-
-      //This is what the game runs to play blackjack
-    public void playBlackJack(){
-        firstThing();
-        addPeople();
-        playersDraw();
-        
-      
-        
-        
-                    for(int i = positionsAtTable.size()-1; i >= 0; i --) {
+public void mainProcess(){
+    for(int i = positionsAtTable.size()-1; i >= 0; i --) {
                     stop= false;
                         while(stop == false  && positionsAtTable.get(i).busted == false){
                           printPlayerMenu();
@@ -114,10 +104,30 @@ public int numPlayers;
                           playerChoice(choice, i); 
                         }
                     }
+                        boolean bust = true;
+                    for(int j = 0; j<positionsAtTable.size(); j++){
+                        if(positionsAtTable.get(j).busted == false){
+                            bust = false;
+                        }
+                        
+                    }
+                    if(bust = false){
                     dealerPlay();
                     determineOutcomes();
+                    }
+                    }
+      //This is what the game runs to play blackjack
+    public void playBlackJack(){
+        addPeople();
+        while(positionsAtTable.size() > 0){
+        firstThing();
+        if(stop == false){
+        playersDraw();     
+        mainProcess();
+                  
+        }
         
-        
+        }
          }
         
         
@@ -144,7 +154,8 @@ public int numPlayers;
             {
             //stand on soft 17;
             case 0:
-               if(deal.calculateValues()< 17){
+               System.out.println("The dealer has flipped over a " +deal.dealer.get(1));
+                if(deal.calculateValues()< 17){
                    while(deal.calculateValues() < 17){
                        Card cardDrawn;
                         cardDrawn = temp.removeCard(0);
@@ -166,7 +177,8 @@ public int numPlayers;
                 break;
                }
             case 1:
-                      if(deal.calculateValues() <= 17){
+                 System.out.println("The dealer has " + deal.dealer.get(1));     
+                if(deal.calculateValues() <= 17){
                    while(deal.calculateValues() < 17 || (deal.calculateValues() == 17 && (deal.dealer.get(0).value==11 || deal.dealer.get(1).value == 11))){
                        int initialValues = deal.calculateValues();
                        Card cardDrawn;
@@ -197,7 +209,7 @@ public int numPlayers;
                 stop = true;
                 System.out.println(positionsAtTable.get(loc));
                 positionsAtTable.remove(loc);
-                break;
+                break;  
             case 1:
                System.out.println("How much would you like to bet?");
                positionsAtTable.get(loc).bet = scan.nextDouble();
@@ -213,8 +225,9 @@ public int numPlayers;
         switch(choice)
             {
             case 0:
-             System.out.println( positionsAtTable.get(loc) + " has stood");
+             System.out.println( positionsAtTable.get(loc).nm + " has stood");
                 stop = true;
+                positionsAtTable.get(loc).busted = false;
                  break;
             case 1:
                  System.out.println(" The player has hit");
@@ -251,7 +264,7 @@ public int numPlayers;
     {
         System.out.println("\n   Menu   ");
         System.out.println("   ====");
-        System.out.println("0: Stand)");
+        System.out.println("0: Stand");
         System.out.println("1: Hit ");
         System.out.println("Enter your choice: ");
 
@@ -261,12 +274,12 @@ public int numPlayers;
         //Modifies the player's money and prints that the player has won and how much money the player has 
         public void winBet(int loc){
             positionsAtTable.get(loc).money += 2*positionsAtTable.get(loc).bet;
-            System.out.println(positionsAtTable.get(loc).nm + " has won ," + positionsAtTable.get(loc).nm + "now has " + positionsAtTable.get(loc).money + " dollars.");
+            System.out.println(positionsAtTable.get(loc).nm + " has won ," + positionsAtTable.get(loc).nm + " now has " + positionsAtTable.get(loc).money + " dollars.");
         }
         //Prints out that you lost and removes the cards from the player's hand
         public void loseBet(int loc){
             System.out.println(positionsAtTable.get(loc).nm + " has lost");
-            System.out.println(positionsAtTable.get(loc).nm + " now has" + positionsAtTable.get(loc).money +" dollars");
+            System.out.println(positionsAtTable.get(loc).nm + " now has " + positionsAtTable.get(loc).money +" dollars");
              int j = 0;
            while( j < positionsAtTable.get(loc).playerHand.size()){
                 positionsAtTable.get(loc).playerHand.remove(j);
@@ -280,7 +293,7 @@ public int numPlayers;
           
             
             System.out.println(positionsAtTable.get(loc).nm + " has busted");
-            System.out.println(positionsAtTable.get(loc).nm + " now has" + positionsAtTable.get(loc).money +" dollars");
+            System.out.println(positionsAtTable.get(loc).nm + " now has " + positionsAtTable.get(loc).money +" dollars");
            int j = 0;
            positionsAtTable.get(loc).busted = true;
            while( j < positionsAtTable.get(loc).playerHand.size()){

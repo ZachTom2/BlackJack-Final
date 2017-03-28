@@ -37,7 +37,8 @@ public class Dealer {
         
     }
      public int calculateValues(){
-      for(int i = 0; i< dealer.size(); i++){
+    numberOfPoints = 0;
+         for(int i = 0; i< dealer.size(); i++){
           numberOfPoints += dealer.get(i).value;
       }
       return numberOfPoints;

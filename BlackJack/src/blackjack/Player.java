@@ -39,6 +39,7 @@ public class Player {
    }
    //Calculates the total value of the cards in the hand
   public int calculateValues(){
+      cardValues = 0;
       for(int i = 0; i< playerHand.size(); i++){
           cardValues += playerHand.get(i).value;
       }
