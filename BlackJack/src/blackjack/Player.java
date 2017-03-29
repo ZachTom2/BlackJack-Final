@@ -41,7 +41,8 @@ public class Player {
   public int calculateValues(){
       cardValues = 0;
       for(int i = 0; i< playerHand.size(); i++){
-          cardValues += playerHand.get(i).value;
+         Card temp = playerHand.get(i); 
+          cardValues = cardValues + temp.value;
       }
       return cardValues;
   }

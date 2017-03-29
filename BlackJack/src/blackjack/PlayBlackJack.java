@@ -59,7 +59,12 @@ public int numPlayers;
     }
     //This adds two cards to the player's hand
       public void playerDraw(int i){
-        Card play1;
+        if(positionsAtTable.get(i).playerHand.size() != 0){
+          for(int j = 0; j<positionsAtTable.get(i).playerHand.size(); j++ ){
+              positionsAtTable.get(i).playerHand.remove(i);
+          }
+      }
+          Card play1;
         play1 = temp.removeCard(0);
         Card play2 = temp.removeCard(0);
         positionsAtTable.get(i).addCard(play1);
@@ -89,7 +94,8 @@ public int numPlayers;
              
       }
       public void playersDraw(){
-           for(int i = positionsAtTable.size()-1; i >= 0; i --){
+           
+          for(int i = positionsAtTable.size()-1; i >= 0; i --){
             playerDraw(i);
         }
                     dealerDraw();
@@ -97,8 +103,8 @@ public int numPlayers;
       
 public void mainProcess(){
     for(int i = positionsAtTable.size()-1; i >= 0; i --) {
-                    stop = false;
-                        while(stop == false  && positionsAtTable.get(i).busted == false){
+                  //  stop = false;
+                        while(stop == false){
                           printPlayerMenu();
                           int choice  = scan.nextInt();
                           playerChoice(choice, i); 
@@ -235,7 +241,7 @@ public void mainProcess(){
             case 0:
              System.out.println( positionsAtTable.get(loc).nm + " has stood");
                 stop = true;
-                positionsAtTable.get(loc).busted = false;
+                //positionsAtTable.get(loc).busted = false;
                  break;
             case 1:
                  System.out.println(" The player has hit");
@@ -285,7 +291,7 @@ public void mainProcess(){
         //Modifies the player's money and prints that the player has won and how much money the player has 
         public void winBet(int loc){
             positionsAtTable.get(loc).money += 2*positionsAtTable.get(loc).bet;
-            System.out.println(positionsAtTable.get(loc).nm + " has won ," + positionsAtTable.get(loc).nm + " now has " + positionsAtTable.get(loc).money + " dollars.");
+            System.out.println(positionsAtTable.get(loc).nm + " has won," + positionsAtTable.get(loc).nm + " now has " + positionsAtTable.get(loc).money + " dollars.");
         }
         //Prints out that you lost and removes the cards from the player's hand
         public void loseBet(int loc){
@@ -305,13 +311,16 @@ public void mainProcess(){
             
             System.out.println(positionsAtTable.get(loc).nm + " has busted");
             System.out.println(positionsAtTable.get(loc).nm + " now has " + positionsAtTable.get(loc).money +" dollars");
+    //        for(int i =0; i< positionsAtTable.get(loc).playerHand.size(); i++){
+      //          System.out.println(positionsAtTable.get(loc).playerHand.get(i));
+        //    }
            int j = 0;
            positionsAtTable.get(loc).busted = true;
            while( j < positionsAtTable.get(loc).playerHand.size()){
                 positionsAtTable.get(loc).playerHand.remove(j);
                 j++;
             }
-         
+         stop = false;
                
             }
         //prints out the message for blackjack
