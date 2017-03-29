@@ -77,6 +77,7 @@ public int numPlayers;
     }
       public void firstThing(){
          for(int i = positionsAtTable.size()-1; i >= 0; i --){
+            System.out.println("It is now " +positionsAtTable.get(i).nm +"'s turn");
              printFirstPlayerMenu();
            int choice = scan.nextInt();
              playerFirstChoice(choice,i);
